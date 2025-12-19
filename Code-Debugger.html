@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Debugger - CodeCraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .debugger-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        .debugger-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+        }
+        .debug-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .debug-btn:hover {
+            background-color: #c82333;
+        }
+        .output-container {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            white-space: pre-wrap;
+        }
+        .error-highlight {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .success-highlight {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .django-link {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff3e0;
+            border-radius: 10px;
+        }
+        .django-link a {
+            color: #f57c00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .django-link a:hover {
+            text-decoration: underline;
+        }
+        .debug-tips {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .debug-tips h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        .debug-tips ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .debug-tips li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://placehold.co/40x40" alt="Logo">
+        <nav>
+            <a class="btn" href="index.html">Home</a>
+            <a class="btn" href="Code-Generator.html">Code Generator</a>
+            <a class="btn" href="Code-Debugger.html">Code Debugger</a>
+            <a class="btn" href="login.html">Sign in /Log in</a>
+        </nav>
+    </header>
+
+    <div class="debugger-container">
+        <h1 style="text-align: center; margin-bottom: 30px; color: #333;">AI Code Debugger</h1>
+        
+        <div class="django-link">
+            <p><i class="fas fa-bug"></i> <strong>For Advanced AI-Powered Debugging:</strong></p>
+            <a href="http://127.0.0.1:8000/" target="_blank">Launch Django AI Code Debugger App</a>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                The Django app provides AI-powered debugging with OpenAI integration and detailed analysis.
+            </p>
+        </div>
+
+        <div class="debug-tips">
+            <h3><i class="fas fa-lightbulb"></i> Debugging Tips</h3>
+            <ul>
+                <li>Check for syntax errors (missing brackets, semicolons, quotes)</li>
+                <li>Verify variable names are spelled correctly</li>
+                <li>Ensure proper indentation (especially in Python)</li>
+                <li>Check for logical errors in your algorithm</li>
+                <li>Use print statements to trace variable values</li>
+                <li>Test edge cases and boundary conditions</li>
+            </ul>
+        </div>
+
+        <div class="debugger-form">
+            <h2>Simple Code Debugger</h2>
+            <form id="codeDebuggerForm">
+                <div class="form-group">
+                    <label for="codeInput">Paste your code that needs debugging:</label>
+                    <textarea id="codeInput" placeholder="Paste your code here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="language">Programming Language:</label>
+                    <select id="language">
+                        <option value="">Select Language</option>
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="csharp">C#</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="sql">SQL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorDescription">Describe the error or issue (optional):</label>
+                    <textarea id="errorDescription" placeholder="What error are you getting? What should the code do?" style="min-height: 80px;"></textarea>
+                </div>
+                
+                <button type="submit" class="debug-btn">
+                    <i class="fas fa-search"></i> Debug Code
+                </button>
+            </form>
+        </div>
+
+        <div class="output-container" id="outputContainer">
+            // Debug analysis will appear here...
+            // For AI-powered debugging, use the Django app above
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © Elements Studios. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('codeDebuggerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const code = document.getElementById('codeInput').value;
+            const language = document.getElementById('language').value;
+            const errorDescription = document.getElementById('errorDescription').value;
+            const output = document.getElementById('outputContainer');
+            
+            if (!code || !language) {
+                output.textContent = 'Please provide both code and select a language.';
+                return;
+            }
+            
+            // Simple debugging analysis
+            let debugAnalysis = performSimpleDebug(code, language, errorDescription);
+            output.textContent = debugAnalysis;
+        });
+        
+        function performSimpleDebug(code, language, errorDescription) {
+            let analysis = `=== CODE DEBUG ANALYSIS ===\n\n`;
+            analysis += `Language: ${language.toUpperCase()}\n`;
+            analysis += `Code Length: ${code.length} characters\n`;
+            analysis += `Lines of Code: ${code.split('\n').length}\n\n`;
+            
+            // Basic syntax checks based on language
+            let issues = [];
+            
+            if (language === 'python') {
+                // Check for variable name errors - this is the critical bug!
+                let variableErrors = findPythonVariableErrors(code);
+                issues.push(...variableErrors);
+                
+                // Check for indentation issues
+                if (code.includes('\t') && code.includes('    ')) {
+                    issues.push('Mixed tabs and spaces detected - use consistent indentation');
+                }
+                
+                // Check for division by zero potential
+                if (code.includes('/ len(') || code.includes('/len(')) {
+                    issues.push('Potential division by zero - check if list is empty before dividing');
+                }
+                
+                // Style suggestions (lower priority)
+                if (code.includes('print(') && !code.includes('if __name__')) {
+                    issues.push('Consider using if __name__ == "__main__": for script execution');
+                }
+            }
+            
+            if (language === 'javascript') {
+                let openBraces = (code.match(/{/g) || []).length;
+                let closeBraces = (code.match(/}/g) || []).length;
+                if (openBraces !== closeBraces) {
+                    issues.push(`Mismatched braces: ${openBraces} opening, ${closeBraces} closing`);
+                }
+                if (code.includes('var ')) {
+                    issues.push('Consider using "let" or "const" instead of "var"');
+                }
+            }
+            
+            if (language === 'java') {
+                if (!code.includes('public class')) {
+                    issues.push('Java code should be in a public class');
+                }
+                if (!code.includes('public static void main')) {
+                    issues.push('Missing main method for executable Java program');
+                }
+            }
+            
+            // General checks
+            let openParens = (code.match(/\(/g) || []).length;
+            let closeParens = (code.match(/\)/g) || []).length;
+            if (openParens !== closeParens) {
+                issues.push(`Mismatched parentheses: ${openParens} opening, ${closeParens} closing`);
+            }
+            
+            let openBrackets = (code.match(/\[/g) || []).length;
+            let closeBrackets = (code.match(/\]/g) || []).length;
+            if (openBrackets !== closeBrackets) {
+                issues.push(`Mismatched brackets: ${openBrackets} opening, ${closeBrackets} closing`);
+            }
+            
+            // Display results
+            if (issues.length > 0) {
+                analysis += `POTENTIAL ISSUES FOUND:\n`;
+                issues.forEach((issue, index) => {
+                    analysis += `${index + 1}. ${issue}\n`;
+                });
+            } else {
+                analysis += `✓ No obvious syntax issues detected!\n`;
+            }
+            
+            if (errorDescription) {
+                analysis += `\nERROR DESCRIPTION: ${errorDescription}\n`;
+                analysis += `\nSUGGESTIONS:\n`;
+                analysis += `- Check the specific line mentioned in error messages\n`;
+                analysis += `- Verify all variables are defined before use\n`;
+                analysis += `- Ensure proper data types are used\n`;
+                analysis += `- Test with simple inputs first\n`;
+            }
+            
+            analysis += `\n=== DEBUGGING RECOMMENDATIONS ===\n`;
+            analysis += `1. Add print/console.log statements to trace execution\n`;
+            analysis += `2. Test with minimal input data\n`;
+            analysis += `3. Check variable values at key points\n`;
+            analysis += `4. Use a proper IDE with debugging tools\n`;
+            analysis += `5. For advanced AI debugging, use the Django app above\n`;
+            
+            return analysis;
+        }
+        
+        function findPythonVariableErrors(code) {
+            let errors = [];
+            let lines = code.split('\n');
+            
+            // Find function parameters and variables
+            let definedVars = new Set();
+            
+            lines.forEach((line, index) => {
+                // Find function parameters
+                let funcMatch = line.match(/def\s+\w+\s*\(([^)]*)\)/);
+                if (funcMatch && funcMatch[1]) {
+                    let params = funcMatch[1].split(',');
+                    params.forEach(param => {
+                        let paramName = param.trim().split('=')[0].trim();
+                        if (paramName) definedVars.add(paramName);
+                    });
+                }
+                
+                // Find for loop variables
+                let forMatch = line.match(/for\s+(\w+)\s+in\s+(\w+)/);
+                if (forMatch) {
+                    definedVars.add(forMatch[1]); // loop variable (e.g., 'num')
+                    definedVars.add(forMatch[2]); // collection variable (e.g., 'numbers')
+                }
+                
+                // Find variable assignments
+                let assignMatch = line.match(/(\w+)\s*=/);
+                if (assignMatch) {
+                    definedVars.add(assignMatch[1]);
+                }
+            });
+            
+            // Check for specific error patterns
+            let foundErrors = new Set(); // Prevent duplicate errors
+            
+            lines.forEach((line, index) => {
+                // Check for len() usage with wrong variables
+                let lenMatch = line.match(/len\((\w+)\)/);
+                if (lenMatch) {
+                    let varInLen = lenMatch[1];
+                    let errorKey = `len_${varInLen}_${index}`;
+                    
+                    // Check if this variable is used as a loop iterator
+                    let forPattern = new RegExp(`for\\s+${varInLen}\\s+in`);
+                    if (forPattern.test(code) && !foundErrors.has(errorKey)) {
+                        // Special case for common 'num' error
+                        if (varInLen === 'num' && code.includes('for num in')) {
+                            errors.push(`🚨 CRITICAL BUG on Line ${index + 1}: 'len(num)' should be 'len(numbers)' - 'num' is the loop iterator, not the collection!`);
+                        } else {
+                            errors.push(`🚨 ERROR on Line ${index + 1}: '${varInLen}' is a loop iterator, not the collection. Use the collection variable name in len().`);
+                        }
+                        foundErrors.add(errorKey);
+                    }
+                    // Check for undefined variables in len() (only if not already flagged as iterator error)
+                    else if (!definedVars.has(varInLen) && !foundErrors.has(errorKey)) {
+                        errors.push(`❌ Line ${index + 1}: Variable '${varInLen}' used in len() is not defined`);
+                        foundErrors.add(errorKey);
+                    }
+                }
+            });
+            
+            return errors;
+        }
+    </script>
+</body>
+</html>

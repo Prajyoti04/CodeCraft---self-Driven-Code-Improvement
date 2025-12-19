@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Generator - CodeCraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .generator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        .generator-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+        }
+        .generate-btn {
+            background-color: #00cfff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .generate-btn:hover {
+            background-color: #00b8e6;
+        }
+        .output-container {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            white-space: pre-wrap;
+        }
+        .django-link {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 10px;
+        }
+        .django-link a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .django-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://placehold.co/40x40" alt="Logo">
+        <nav>
+            <a class="btn" href="index.html">Home</a>
+            <a class="btn" href="Code-Generator.html">Code Generator</a>
+            <a class="btn" href="Code-Debugger.html">Code Debugger</a>
+            <a class="btn" href="login.html">Sign in /Log in</a>
+        </nav>
+    </header>
+
+    <div class="generator-container">
+        <h1 style="text-align: center; margin-bottom: 30px; color: #333;">AI Code Generator</h1>
+        
+        <div class="django-link">
+            <p><i class="fas fa-rocket"></i> <strong>For Full AI-Powered Code Generation:</strong></p>
+            <a href="http://127.0.0.1:8000/" target="_blank">Launch Django AI Code Generator App</a>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                The Django app provides advanced AI code generation with user accounts, history, and OpenAI integration.
+            </p>
+        </div>
+
+        <div class="generator-form">
+            <h2>Simple Code Generator</h2>
+            <form id="codeGeneratorForm">
+                <div class="form-group">
+                    <label for="codeDescription">Describe what you want to code:</label>
+                    <textarea id="codeDescription" placeholder="Example: Create a Python function that calculates the factorial of a number"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="language">Programming Language:</label>
+                    <select id="language">
+                        <option value="">Select Language</option>
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="csharp">C#</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="sql">SQL</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="generate-btn">
+                    <i class="fas fa-code"></i> Generate Code
+                </button>
+            </form>
+        </div>
+
+        <div class="output-container" id="outputContainer">
+            // Generated code will appear here...
+            // For AI-powered generation, use the Django app above
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © Elements Studios. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('codeGeneratorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const description = document.getElementById('codeDescription').value;
+            const language = document.getElementById('language').value;
+            const output = document.getElementById('outputContainer');
+            
+            if (!description || !language) {
+                output.textContent = 'Please fill in both the description and select a language.';
+                return;
+            }
+            
+            // Simple template-based code generation
+            let generatedCode = generateSimpleCode(description, language);
+            output.textContent = generatedCode;
+        });
+        
+        function generateSimpleCode(description, language) {
+            // Analyze the description to generate appropriate code
+            const lowerDesc = description.toLowerCase();
+            
+            const templates = {
+                python: generatePythonCode(description, lowerDesc),
+                javascript: generateJavaScriptCode(description, lowerDesc),
+                
+                java: `// ${description}
+public class GeneratedCode {
+    /**
+     * ${description}
+     */
+    public static void generatedMethod() {
+        // TODO: Implement your logic here
+    }
+    
+    public static void main(String[] args) {
+        generatedMethod();
+    }
+}`,
+                
+                cpp: `// ${description}
+#include <iostream>
+using namespace std;
+
+void generatedFunction() {
+    // ${description}
+    // TODO: Implement your logic here
+}
+
+int main() {
+    generatedFunction();
+    return 0;
+}`,
+                
+                html: `<!-- ${description} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated HTML</title>
+</head>
+<body>
+    <!-- ${description} -->
+    <h1>Generated Content</h1>
+    <!-- TODO: Add your HTML content here -->
+</body>
+</html>`,
+                
+                css: `/* ${description} */
+.generated-class {
+    /* TODO: Add your CSS properties here */
+    /* ${description} */
+}`,
+                
+                sql: `-- ${description}
+-- TODO: Write your SQL query here
+SELECT * FROM table_name 
+WHERE condition = 'value';`
+            };
+            
+            return templates[language] || `// ${description}\n// TODO: Implement in ${language}`;
+        }
+        
+        function generatePythonCode(description, lowerDesc) {
+            // Add two numbers
+            if (lowerDesc.includes('add') && lowerDesc.includes('number')) {
+                return `# ${description}
+def add_two_numbers(a, b):
+    """
+    Add two numbers and return the result
+    """
+    return a + b
+
+# Example usage
+if __name__ == "__main__":
+    num1 = 5
+    num2 = 3
+    result = add_two_numbers(num1, num2)
+    print(f"The sum of {num1} and {num2} is: {result}")`;
+            }
+            
+            // Factorial
+            if (lowerDesc.includes('factorial')) {
+                return `# ${description}
+def factorial(n):
+    """
+    Calculate the factorial of a number
+    """
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# Example usage
+if __name__ == "__main__":
+    number = 5
+    result = factorial(number)
+    print(f"The factorial of {number} is: {result}")`;
+            }
+            
+            // Calculator
+            if (lowerDesc.includes('calculator')) {
+                return `# ${description}
+def calculator():
+    """
+    Simple calculator for basic operations
+    """
+    print("Simple Calculator")
+    print("Operations: +, -, *, /")
+    
+    num1 = float(input("Enter first number: "))
+    operator = input("Enter operator (+, -, *, /): ")
+    num2 = float(input("Enter second number: "))
+    
+    if operator == '+':
+        result = num1 + num2
+    elif operator == '-':
+        result = num1 - num2
+    elif operator == '*':
+        result = num1 * num2
+    elif operator == '/':
+        if num2 != 0:
+            result = num1 / num2
+        else:
+            return "Error: Division by zero!"
+    else:
+        return "Error: Invalid operator!"
+    
+    return f"Result: {result}"
+
+# Example usage
+if __name__ == "__main__":
+    print(calculator())`;
+            }
+            
+            // Hello World
+            if (lowerDesc.includes('hello world') || lowerDesc.includes('hello')) {
+                return `# ${description}
+def hello_world():
+    """
+    Print Hello World message
+    """
+    return "Hello, World!"
+
+# Example usage
+if __name__ == "__main__":
+    message = hello_world()
+    print(message)`;
+            }
+            
+            // Default template
+            return `# ${description}
+def generated_function():
+    """
+    ${description}
+    """
+    # TODO: Implement your logic here
+    pass
+
+# Example usage
+if __name__ == "__main__":
+    result = generated_function()
+    print(result)`;
+        }
+        
+        function generateJavaScriptCode(description, lowerDesc) {
+            // Add two numbers
+            if (lowerDesc.includes('add') && lowerDesc.includes('number')) {
+                return `// ${description}
+function addTwoNumbers(a, b) {
+    /**
+     * Add two numbers and return the result
+     */
+    return a + b;
+}
+
+// Example usage
+const num1 = 5;
+const num2 = 3;
+const result = addTwoNumbers(num1, num2);
+console.log(\`The sum of \${num1} and \${num2} is: \${result}\`);`;
+            }
+            
+            // Default template
+            return `// ${description}
+function generatedFunction() {
+    /**
+     * ${description}
+     */
+    // TODO: Implement your logic here
+    return null;
+}
+
+// Example usage
+const result = generatedFunction();
+console.log(result);`;
+        }
+    </script>
+</body>
+</html>
