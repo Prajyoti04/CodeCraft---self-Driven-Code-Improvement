@@ -56,7 +56,7 @@ class AICodeGenerator:
         # Using the base starcoder model
         self.API_URL = "https://api-inference.huggingface.co/models/bigcode/starcoder"
         self.headers = {
-            "Authorization": f"Bearer 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",  # Replace with your actual token
+            "Authorization": f"",  # Replace with your actual token
             "Content-Type": "application/json"
         }
 
@@ -143,5 +143,6 @@ def ask_question():
         print("-" * 50)
         print(responce)
         print("-" * 50)
+
 
 
